@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.joorgeit.movies.model.dbapi.Movie;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
+
 	long count();
 
 	Optional<Movie> findById(Long id);

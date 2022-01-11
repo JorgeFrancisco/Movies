@@ -11,6 +11,7 @@ import com.joorgeit.movies.model.ProducerWinner;
 import com.joorgeit.movies.model.dbapi.MovieProducer;
 
 public interface MovieProducerRepository extends JpaRepository<MovieProducer, Long> {
+
 	Optional<MovieProducer> findByIdProducerIdAndMovieId(Long producerId, Long moveId);
 
 	List<MovieProducer> findAll();

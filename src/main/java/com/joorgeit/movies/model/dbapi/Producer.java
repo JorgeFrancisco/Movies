@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +33,7 @@ public class Producer implements Serializable {
 	private String name;
 
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "producer")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "producer", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private Set<MovieProducer> producers = new HashSet<>();
 
 	public Producer() {

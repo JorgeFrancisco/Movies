@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,8 +84,8 @@ public class ProducersController {
 			@ApiResponse(code = 405, message = "Method not allowed."),
 			@ApiResponse(code = 500, message = "Internal server error.") })
 	@GetMapping("/producer/{producerId}")
-	ResponseEntity<Optional<Producer>> getProducersById(@PathVariable @NotNull @DecimalMin("1") Long producerId)
-			throws Exception {
+	ResponseEntity<Optional<Producer>> getProducersById(
+			@PathVariable(value = "producerId") @NotNull @DecimalMin("1") Long producerId) throws Exception {
 		try {
 			Optional<Producer> response = moviesService.getProducersById(producerId);
 
@@ -93,6 +94,32 @@ public class ProducersController {
 			}
 
 			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			logger.error("An error ocurred: " + e.getLocalizedMessage());
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@ApiOperation(value = "Delete producer by id.", tags = "Producers")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 400, message = "Bad request."),
+			@ApiResponse(code = 401, message = "Unauthorized. The request requires user authentication."),
+			@ApiResponse(code = 403, message = "Forbidden Error."), @ApiResponse(code = 404, message = "Not found."),
+			@ApiResponse(code = 405, message = "Method not allowed."),
+			@ApiResponse(code = 500, message = "Internal server error.") })
+	@DeleteMapping("/{producerId}")
+	public ResponseEntity<Object> delete(@PathVariable(value = "producerId") Long producerId) {
+		Optional<Producer> producer = moviesService.getProducersById(producerId);
+
+		try {
+			if (producer.isPresent()) {
+				moviesService.deleteProducer(producer.get());
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+
+			return ResponseEntity.ok("Producer " + producer.get().getName() + " deleted!");
 		} catch (Exception e) {
 			logger.error("An error ocurred: " + e.getLocalizedMessage());
 

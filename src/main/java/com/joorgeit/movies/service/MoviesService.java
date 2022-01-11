@@ -59,8 +59,12 @@ public class MoviesService {
 		return movieRepository.findAll();
 	}
 
-	public Optional<Movie> getMoviesById(Long id) {
-		return movieRepository.findById(id);
+	public Optional<Movie> getMoviesById(Long movieId) {
+		return movieRepository.findById(movieId);
+	}
+
+	public void deleteMovie(Movie movie) {
+		movieRepository.delete(movie);
 	}
 
 	public Object getProducers(Optional<String> filter, Optional<String> name) {
@@ -83,8 +87,12 @@ public class MoviesService {
 		return producerRepository.findAll();
 	}
 
-	public Optional<Producer> getProducersById(Long id) {
-		return producerRepository.findById(id);
+	public Optional<Producer> getProducersById(Long producerId) {
+		return producerRepository.findById(producerId);
+	}
+
+	public void deleteProducer(Producer producer) {
+		producerRepository.delete(producer);
 	}
 
 	public ProducerWinnerByMinMaxIntervalYearResponse getProducersWinnerByMinMaxIntervalYear() {

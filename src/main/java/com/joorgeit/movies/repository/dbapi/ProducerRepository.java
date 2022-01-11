@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.joorgeit.movies.model.dbapi.Producer;
 
 public interface ProducerRepository extends JpaRepository<Producer, Long> {
+
 	long count();
 
 	Optional<Producer> findById(Long id);
