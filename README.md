@@ -19,7 +19,11 @@ Para executar o projeto e os testes pelo Maven. Executar:
 1ª opção.<br>
 <b>mvn test</b>
 
-2ª opção.<br>
+2ª opção.
+Para executar o projeto e os testes pelo Maven. Executar: 
+<b>mvn -U clean dependency:tree dependency:resolve dependency:resolve-plugins package && java -jar ./target/movies-0.0.1-SNAPSHOT.jar</b>
+
+3ª opção.<br>
 Para executar somente os testes do projeto pela IDE do eclipse:
 Importar o projeto como um projeto maven existente. Na pasta do projeto abrir o menu do contexto com o botão direito e executar o comado Run As->JUnit Test
 
