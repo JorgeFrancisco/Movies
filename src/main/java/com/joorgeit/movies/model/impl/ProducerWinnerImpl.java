@@ -4,69 +4,70 @@ import com.joorgeit.movies.model.ProducerWinner;
 
 public class ProducerWinnerImpl implements ProducerWinner {
 
-	private Long producerId;
+	private Long producerWinId;
 
-	private String producerName;
+	private String producerWinName;
 
-	private Long intervalYears;
+	private Long intervalWin;
 
-	private Long firstYear;
+	private Long previousWin;
 
-	private Long lastYear;
+	private Long followingWin;
 
 	public ProducerWinnerImpl() {
 	}
 
-	public ProducerWinnerImpl(Long producerId, String producerName, Long intervalYears, Long firstYear, Long lastYear) {
-		this.producerId = producerId;
-		this.producerName = producerName;
-		this.intervalYears = intervalYears;
-		this.firstYear = firstYear;
-		this.lastYear = lastYear;
+	public ProducerWinnerImpl(Long producerWinId, String producerWinName, Long intervalWin, Long previousWin,
+			Long followingWin) {
+		this.producerWinId = producerWinId;
+		this.producerWinName = producerWinName;
+		this.intervalWin = intervalWin;
+		this.previousWin = previousWin;
+		this.followingWin = followingWin;
 	}
 
 	@Override
-	public Long getProducerId() {
-		return producerId;
+	public Long getProducerWinId() {
+		return producerWinId;
 	}
 
 	@Override
-	public String getProducerName() {
-		return producerName;
+	public String getProducerWinName() {
+		return producerWinName;
 	}
 
 	@Override
-	public Long getIntervalYears() {
-		return intervalYears;
+	public Long getIntervalWin() {
+		return intervalWin;
 	}
 
 	@Override
-	public Long getFirstYear() {
-		return firstYear;
+	public Long getPreviousWin() {
+		return previousWin;
 	}
 
 	@Override
-	public Long getLastYear() {
-		return lastYear;
+	public Long getFollowingWin() {
+		return followingWin;
 	}
 
-	public void setProducerId(Long producerId) {
-		this.producerId = producerId;
+	public void setProducerWinId(Long producerWinId) {
+		this.producerWinId = producerWinId;
 	}
 
-	public void setProducerName(String producerName) {
-		this.producerName = producerName;
+	public void setProducerWinName(String producerWinName) {
+		this.producerWinName = producerWinName;
 	}
 
-	public void setIntervalYears(Long intervalYears) {
-		this.intervalYears = intervalYears;
+	public void setIntervalWin(Long intervalWin) {
+		this.intervalWin = intervalWin;
 	}
 
-	public void setFirstYear(Long firstYear) {
-		this.firstYear = firstYear;
+	public void setPreviousWin(Long previousWin) {
+		this.previousWin = previousWin;
 	}
 
-	public void setLastYear(Long lastYear) {
-		this.lastYear = lastYear;
+	public void setFollowingWin(Long followingWin) {
+		this.followingWin = followingWin;
 	}
 }

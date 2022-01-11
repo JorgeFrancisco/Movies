@@ -16,18 +16,18 @@ public interface MovieProducerRepository extends JpaRepository<MovieProducer, Lo
 
 	List<MovieProducer> findAll();
 
-	static final String queryFindProducersWinner = "SELECT producerId producerid, producerName producername, "
-			+ "firstYear firstyear, lastYear lastyear, intervalYears intervalyears FROM (SELECT "
-			+ "DISTINCT (mp.producer_id) producerId, p.name producerName, FIRST_VALUE(year) OVER w firstYear "
-			+ ",LAST_VALUE(year) OVER w lastYear "
-			+ ",ABS(LAST_VALUE(year) OVER w - FIRST_VALUE(year) OVER w) intervalYears FROM movie_producer mp "
+	static final String queryFindProducersWinner = "SELECT "
+			+ "producerwinid, producerwinname, ABS(followingWin - previousWin) intervalwin, previouswin, followingwin "
+			+ "FROM " + "(SELECT p.producer_id producerwinid, p.name producerwinname, m.year previouswin, "
+			+ "LEAD(m.year, 1, m.year) OVER w AS followingwin " + "FROM movie_producer mp "
 			+ "INNER JOIN producer p ON p.producer_id = mp.producer_id "
-			+ "INNER JOIN  movie m ON m.movie_id = mp.movie_id " + "WHERE m.winner IS NOT NULL "
+			+ "INNER JOIN  movie m ON m.movie_id = mp.movie_id " + "WHERE " + "m.winner IS NOT NULL "
 			+ "AND m.winner = TRUE " + "AND m.year IS NOT NULL " + "AND m.year > 0 " + "AND m.title IS NOT NULL "
-			+ "AND p.name IS NOT NULL " + "WINDOW w AS ( "
-			+ "PARTITION BY mp.producer_id RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)) temp "
-			+ "WHERE intervalYears >= :interval AND " + "(:name IS null OR :name = '' OR producerName = :name)";
+			+ "AND p.name IS NOT NULL " + "AND (:producerName IS NULL OR :producerName = '' OR p.name = :producerName) "
+			+ "WINDOW w AS (PARTITION BY mp.producer_id ORDER BY m.year ASC) ) temp " + "WHERE "
+			+ "(ABS(followingWin - previousWin) > 0 OR :withConsecutiveWins IS NULL OR :withConsecutiveWins = FALSE)";
 
 	@Query(value = queryFindProducersWinner, nativeQuery = true)
-	public List<ProducerWinner> findProducersWinner(@Param("name") String name, @Param("interval") Long interval);
+	public List<ProducerWinner> findProducersWinner(@Param("producerName") String producerName,
+			@Param("withConsecutiveWins") Boolean withConsecutiveWins);
 }

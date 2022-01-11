@@ -71,7 +71,7 @@ public class MoviesService {
 		if (name.isPresent()) {
 			if (filter.isPresent()) {
 				if ("winner".equals(filter.get().toLowerCase())) {
-					return movieProducerRepository.findProducersWinner(name.get(), 0L);
+					return movieProducerRepository.findProducersWinner(name.get(), false);
 				}
 			}
 
@@ -79,7 +79,7 @@ public class MoviesService {
 		}
 		if (filter.isPresent()) {
 			if ("winner".equals(filter.get().toLowerCase())) {
-				return movieProducerRepository.findProducersWinner(null, 0L);
+				return movieProducerRepository.findProducersWinner("", false);
 			} else if ("winnerminmax".equals(filter.get().toLowerCase())) {
 				return getProducersWinnerByMinMaxIntervalYear();
 			}
@@ -96,24 +96,24 @@ public class MoviesService {
 	}
 
 	public ProducerWinnerByMinMaxIntervalYearResponse getProducersWinnerByMinMaxIntervalYear() {
-		List<ProducerWinner> producersWinner = movieProducerRepository.findProducersWinner("", 1L);
+		List<ProducerWinner> producersWinner = movieProducerRepository.findProducersWinner("", true);
 
 		if (producersWinner != null && producersWinner.isEmpty() == false) {
 			Optional<ProducerWinner> producerByMinIntervalYear = producersWinner.stream()
-					.min(Comparator.comparing(ProducerWinner::getIntervalYears));
+					.min(Comparator.comparing(ProducerWinner::getIntervalWin));
 
 			Optional<ProducerWinner> producerByMaxIntervalYear = producersWinner.stream()
-					.max(Comparator.comparing(ProducerWinner::getIntervalYears));
+					.max(Comparator.comparing(ProducerWinner::getIntervalWin));
 
 			if (producerByMinIntervalYear.isPresent() && producerByMaxIntervalYear.isPresent()) {
-				final Long minIntervalYear = producerByMinIntervalYear.get().getIntervalYears();
-				final Long maxIntervalYear = producerByMaxIntervalYear.get().getIntervalYears();
+				final Long minIntervalYear = producerByMinIntervalYear.get().getIntervalWin();
+				final Long maxIntervalYear = producerByMaxIntervalYear.get().getIntervalWin();
 
 				List<ProducerWinner> producersByMinIntervalYear = producersWinner.stream().filter(Objects::nonNull)
-						.filter(p -> p.getIntervalYears() == minIntervalYear).collect(Collectors.toList());
+						.filter(p -> p.getIntervalWin() == minIntervalYear).collect(Collectors.toList());
 
 				List<ProducerWinner> producersByMaxIntervalYear = producersWinner.stream().filter(Objects::nonNull)
-						.filter(p -> p.getIntervalYears() == maxIntervalYear).collect(Collectors.toList());
+						.filter(p -> p.getIntervalWin() == maxIntervalYear).collect(Collectors.toList());
 
 				return new ProducerWinnerByMinMaxIntervalYearResponse(producersByMinIntervalYear,
 						producersByMaxIntervalYear);

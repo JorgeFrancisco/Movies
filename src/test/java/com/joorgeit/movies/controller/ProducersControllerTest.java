@@ -62,33 +62,35 @@ public class ProducersControllerTest {
 		List<ProducerWinner> maxs = producerWinnerByMinMaxIntervalYearResponse.getMax();
 
 		for (ProducerWinner min : mins) {
-			Assertions.assertFalse(Util.isInvalidText(min.getProducerName()));
+			Assertions.assertFalse(Util.isInvalidText(min.getProducerWinName()));
 
-			Assertions.assertNotNull(min.getIntervalYears());
+			Assertions.assertNotNull(min.getIntervalWin());
 
-			Assertions.assertNotNull(min.getFirstYear());
+			Assertions.assertNotNull(min.getPreviousWin());
+
+			Assertions.assertNotNull(min.getFollowingWin());
 
 			@SuppressWarnings("unchecked")
 			List<ProducerWinner> producerWinner = (List<ProducerWinner>) moviesService
-					.getProducers(Optional.of("winner"), Optional.of(min.getProducerName()));
+					.getProducers(Optional.of("winner"), Optional.of(min.getProducerWinName()));
 
-			Assertions.assertTrue(producerWinner.get(0).getProducerName().equals(min.getProducerName()));
+			Assertions.assertTrue(producerWinner.get(0).getProducerWinName().equals(min.getProducerWinName()));
 		}
 
 		for (ProducerWinner max : maxs) {
-			Assertions.assertFalse(Util.isInvalidText(max.getProducerName()));
+			Assertions.assertFalse(Util.isInvalidText(max.getProducerWinName()));
 
-			Assertions.assertNotNull(max.getIntervalYears());
+			Assertions.assertNotNull(max.getIntervalWin());
 
-			Assertions.assertNotNull(max.getFirstYear());
+			Assertions.assertNotNull(max.getPreviousWin());
 
-			Assertions.assertNotNull(max.getLastYear());
+			Assertions.assertNotNull(max.getFollowingWin());
 
 			@SuppressWarnings("unchecked")
 			List<ProducerWinner> producerWinner = (List<ProducerWinner>) moviesService
-					.getProducers(Optional.of("winner"), Optional.of(max.getProducerName()));
+					.getProducers(Optional.of("winner"), Optional.of(max.getProducerWinName()));
 
-			Assertions.assertTrue(producerWinner.get(0).getProducerName().equals(max.getProducerName()));
+			Assertions.assertTrue(producerWinner.get(0).getProducerWinName().equals(max.getProducerWinName()));
 		}
 	}
 }

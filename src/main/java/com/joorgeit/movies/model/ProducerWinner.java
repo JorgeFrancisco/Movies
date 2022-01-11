@@ -11,17 +11,17 @@ import com.joorgeit.movies.model.impl.ProducerWinnerImpl;
 public interface ProducerWinner {
 
 	@JsonIgnore
-	Long getProducerId();
+	Long getProducerWinId();
 
 	@JsonProperty("producer")
-	String getProducerName();
+	String getProducerWinName();
 
 	@JsonProperty("interval")
-	Long getIntervalYears();
+	Long getIntervalWin();
 
 	@JsonProperty("previousWin")
-	Long getFirstYear();
+	Long getPreviousWin();
 
 	@JsonProperty("followingWin")
-	Long getLastYear();
+	Long getFollowingWin();
 }
