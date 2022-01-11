@@ -47,8 +47,7 @@ public class ProducersController {
 	@GetMapping("/producer")
 	ResponseEntity<Object> getProducers(
 			@RequestParam(name = "filter") @ApiParam(value = "Filter (winner = Only winners, winnerminmax = winner min/max by interval year, all = All)", required = false) Optional<String> filter,
-			@RequestParam(name = "name") @ApiParam(value = "Producer name", required = false) Optional<String> name)
-			throws Exception {
+			@RequestParam(name = "name") @ApiParam(value = "Producer name", required = false) Optional<String> name) {
 		try {
 			Object response = moviesService.getProducers(filter, name);
 
@@ -85,7 +84,7 @@ public class ProducersController {
 			@ApiResponse(code = 500, message = "Internal server error.") })
 	@GetMapping("/producer/{producerId}")
 	ResponseEntity<Optional<Producer>> getProducersById(
-			@PathVariable(value = "producerId") @NotNull @DecimalMin("1") Long producerId) throws Exception {
+			@PathVariable(value = "producerId") @NotNull @DecimalMin("1") Long producerId) {
 		try {
 			Optional<Producer> response = moviesService.getProducersById(producerId);
 
@@ -109,7 +108,8 @@ public class ProducersController {
 			@ApiResponse(code = 405, message = "Method not allowed."),
 			@ApiResponse(code = 500, message = "Internal server error.") })
 	@DeleteMapping("/{producerId}")
-	public ResponseEntity<Object> delete(@PathVariable(value = "producerId") Long producerId) {
+	public ResponseEntity<Object> delete(
+			@PathVariable(value = "producerId") @NotNull @DecimalMin("1") Long producerId) {
 		Optional<Producer> producer = moviesService.getProducersById(producerId);
 
 		try {

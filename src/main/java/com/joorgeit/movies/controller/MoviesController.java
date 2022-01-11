@@ -48,8 +48,7 @@ public class MoviesController {
 	ResponseEntity<List<Movie>> getMovies(
 			@RequestParam(name = "filter") @ApiParam(value = "Filter (winner = Only winners, all = All)", required = false) Optional<String> filter,
 			@RequestParam(name = "title") @ApiParam(value = "Movie title", required = false) Optional<String> title,
-			@RequestParam(name = "year") @ApiParam(value = "Movie year", required = false) Optional<Long> year)
-			throws Exception {
+			@RequestParam(name = "year") @ApiParam(value = "Movie year", required = false) Optional<Long> year) {
 		try {
 			List<Movie> response = moviesService.getMovies(filter, title, year);
 
@@ -74,7 +73,7 @@ public class MoviesController {
 			@ApiResponse(code = 500, message = "Internal server error.") })
 	@GetMapping("/movie/{movieId}")
 	ResponseEntity<Optional<Movie>> getMoviesById(
-			@PathVariable(value = "movieId") @NotNull @DecimalMin("1") Long movieId) throws Exception {
+			@PathVariable(value = "movieId") @NotNull @DecimalMin("1") Long movieId) {
 		try {
 			Optional<Movie> response = moviesService.getMoviesById(movieId);
 
@@ -98,7 +97,7 @@ public class MoviesController {
 			@ApiResponse(code = 405, message = "Method not allowed."),
 			@ApiResponse(code = 500, message = "Internal server error.") })
 	@DeleteMapping("/{movieId}")
-	public ResponseEntity<Object> delete(@PathVariable(value = "movieId") Long movieId) {
+	public ResponseEntity<Object> delete(@PathVariable(value = "movieId") @NotNull @DecimalMin("1") Long movieId) {
 		Optional<Movie> movie = moviesService.getMoviesById(movieId);
 
 		try {
