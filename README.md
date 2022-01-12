@@ -44,3 +44,8 @@ http://localhost:8895/movies/producers/producer?filter=winnerminmax
 
 Após subir a aplicação, uma documentação da API (fornecida pelo Swagger) pode ser acessada através do endereço:<br>
 http://localhost:8895/movies/swagger-ui.html
+
+# Gerar imagem Docker:
+
+1ª opção.<br>
+<b>mvn compile jib:dockerBuild -X</b>
