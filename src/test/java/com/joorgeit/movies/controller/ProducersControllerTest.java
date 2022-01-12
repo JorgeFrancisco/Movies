@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.joorgeit.movies.model.ProducerWinner;
-import com.joorgeit.movies.model.response.ProducerWinnerByMinMaxIntervalYearResponse;
+import com.joorgeit.movies.model.response.ProducerWinnerByMinMaxIntervalWinResponse;
 import com.joorgeit.movies.service.MoviesService;
 import com.joorgeit.movies.util.Util;
 
@@ -54,12 +54,12 @@ public class ProducersControllerTest {
 				.params(requestProducersWinnerMinMaxParams).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();
 
-		ProducerWinnerByMinMaxIntervalYearResponse producerWinnerByMinMaxIntervalYearResponse = mapper.readValue(
+		ProducerWinnerByMinMaxIntervalWinResponse producerWinnerByMinMaxIntervalWinResponse = mapper.readValue(
 				resultProducersWinnerMinMax.getResponse().getContentAsString(),
-				ProducerWinnerByMinMaxIntervalYearResponse.class);
+				ProducerWinnerByMinMaxIntervalWinResponse.class);
 
-		List<ProducerWinner> mins = producerWinnerByMinMaxIntervalYearResponse.getMin();
-		List<ProducerWinner> maxs = producerWinnerByMinMaxIntervalYearResponse.getMax();
+		List<ProducerWinner> mins = producerWinnerByMinMaxIntervalWinResponse.getMin();
+		List<ProducerWinner> maxs = producerWinnerByMinMaxIntervalWinResponse.getMax();
 
 		for (ProducerWinner min : mins) {
 			Assertions.assertFalse(Util.isInvalidText(min.getProducerWinName()));

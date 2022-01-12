@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.joorgeit.movies.model.dbapi.Producer;
-import com.joorgeit.movies.model.response.ProducerWinnerByMinMaxIntervalYearResponse;
+import com.joorgeit.movies.model.response.ProducerWinnerByMinMaxIntervalWinResponse;
 import com.joorgeit.movies.service.MoviesService;
 
 import io.swagger.annotations.Api;
@@ -55,14 +55,14 @@ public class ProducersController {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 			}
 
-			if (response instanceof ProducerWinnerByMinMaxIntervalYearResponse) {
-				ProducerWinnerByMinMaxIntervalYearResponse producerWinnerByMinMaxIntervalYearResponse = (ProducerWinnerByMinMaxIntervalYearResponse) response;
+			if (response instanceof ProducerWinnerByMinMaxIntervalWinResponse) {
+				ProducerWinnerByMinMaxIntervalWinResponse producerWinnerByMinMaxIntervalWinResponse = (ProducerWinnerByMinMaxIntervalWinResponse) response;
 
-				if (producerWinnerByMinMaxIntervalYearResponse == null
-						|| producerWinnerByMinMaxIntervalYearResponse.getMin() == null
-						|| producerWinnerByMinMaxIntervalYearResponse.getMin().isEmpty()
-						|| producerWinnerByMinMaxIntervalYearResponse.getMax() == null
-						|| producerWinnerByMinMaxIntervalYearResponse.getMax().isEmpty()) {
+				if (producerWinnerByMinMaxIntervalWinResponse == null
+						|| producerWinnerByMinMaxIntervalWinResponse.getMin() == null
+						|| producerWinnerByMinMaxIntervalWinResponse.getMin().isEmpty()
+						|| producerWinnerByMinMaxIntervalWinResponse.getMax() == null
+						|| producerWinnerByMinMaxIntervalWinResponse.getMax().isEmpty()) {
 					return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 				}
 			}

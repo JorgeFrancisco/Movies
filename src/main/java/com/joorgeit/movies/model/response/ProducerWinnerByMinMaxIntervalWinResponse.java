@@ -6,7 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.joorgeit.movies.model.ProducerWinner;
 
-public class ProducerWinnerByMinMaxIntervalYearResponse implements Serializable {
+public class ProducerWinnerByMinMaxIntervalWinResponse implements Serializable {
 
 	private static final long serialVersionUID = -4334240554186265884L;
 
@@ -16,10 +16,10 @@ public class ProducerWinnerByMinMaxIntervalYearResponse implements Serializable 
 	@JsonProperty("max")
 	private List<ProducerWinner> max;
 
-	public ProducerWinnerByMinMaxIntervalYearResponse() {
+	public ProducerWinnerByMinMaxIntervalWinResponse() {
 	}
 
-	public ProducerWinnerByMinMaxIntervalYearResponse(List<ProducerWinner> min, List<ProducerWinner> max) {
+	public ProducerWinnerByMinMaxIntervalWinResponse(List<ProducerWinner> min, List<ProducerWinner> max) {
 		this.min = min;
 		this.max = max;
 	}
@@ -50,6 +50,6 @@ public class ProducerWinnerByMinMaxIntervalYearResponse implements Serializable 
 
 	@Override
 	public String toString() {
-		return "ProducerWinnerByMinMaxIntervalYearResponse [min=" + min + ", max=" + max + "]";
+		return "ProducerWinnerByMinMaxIntervalWinResponse [min=" + min + ", max=" + max + "]";
 	}
 }
