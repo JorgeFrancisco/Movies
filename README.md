@@ -16,6 +16,8 @@ Para executar o projeto e os testes pelo Maven. Executar:<br>
 
 # Executar os testes:
 
+No diretóro raiz da aplicação, executar uma das seguintes opções:<br>
+
 1ª opção.<br>
 <b>mvn test</b>
 
