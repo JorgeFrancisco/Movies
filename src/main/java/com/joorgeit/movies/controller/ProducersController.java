@@ -46,7 +46,7 @@ public class ProducersController {
 			@ApiResponse(code = 500, message = "Internal server error.") })
 	@GetMapping("/producer")
 	ResponseEntity<Object> getProducers(
-			@RequestParam(name = "filter") @ApiParam(value = "Filter (winner = Only winners, winnerminmax = winner min/max by interval year, all = All)", required = false) Optional<String> filter,
+			@RequestParam(name = "filter") @ApiParam(value = "Filter (winner = Only winners, winnerminmax = winner min/max by interval win, all = All)", required = false) Optional<String> filter,
 			@RequestParam(name = "name") @ApiParam(value = "Producer name", required = false) Optional<String> name) {
 		try {
 			Object response = moviesService.getProducers(filter, name);
